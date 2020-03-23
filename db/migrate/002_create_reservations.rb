@@ -1,4 +1,4 @@
-class CreateReservations < ActiveRecord::Migrate[5.1]
+class CreateReservations < ActiveRecord::Migration[5.1]
 
     def change 
       create_table :reservations do |t|
