@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-
-=======
->>>>>>> master
 #  Destroys all previous data
 User.destroy_all
 Restaurant.destroy_all

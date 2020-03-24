@@ -11,7 +11,5 @@ class Restaurant < ActiveRecord::Base
         Interface.restaurant_menu
     end
 
-    def self.create_account
-
-    end
+   
 end

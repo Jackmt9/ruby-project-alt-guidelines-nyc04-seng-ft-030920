@@ -1,16 +1,10 @@
 require_relative '../config/environment'
-<<<<<<< HEAD
-=======
-binding.pry
 
->>>>>>> master
+
 interface = Interface.new()
 interface.welcome
-interface.new_or_existing
+interface.user_or_restaurant
+x = User.log_in
+interface.user_menu(x)
 
-<<<<<<< HEAD
-# binding.pry
 puts "That's all folks!"
-=======
-puts "That's all folks!"
->>>>>>> master
