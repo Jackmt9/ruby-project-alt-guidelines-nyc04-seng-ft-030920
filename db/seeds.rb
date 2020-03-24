@@ -1,19 +1,5 @@
-require_all 'app'
-
-<<<<<<< HEAD
-User.create!(name: "Jack")
-User.create!(name: "Xavier")
-User.create!(name: "Gary")
-User.create!(name: "Donny")
-User.create!(name: "Gabrielle")
-User.create!(name: "Stephanie")
-User.create!(name: "Isabel")
-User.create!(name: "Stephanie")
-User.create!(name: "Asad")
 
 
-
-=======
 #  Destroys all previous data
 User.destroy_all
 Restaurant.destroy_all
@@ -39,4 +25,3 @@ end
 end
 
 puts "Seed data initialized!"
->>>>>>> master
