@@ -73,4 +73,8 @@ DEPENDENCIES
   tty-prompt
 
 BUNDLED WITH
+<<<<<<< HEAD
    2.1.2
+=======
+   2.1.4
+>>>>>>> master
