@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
         puts "Please enter your full name: "
         name = gets.chomp
         User.find_or_create_by(name: name)
+<<<<<<< HEAD
         
     end
 
@@ -24,4 +25,7 @@ class User < ActiveRecord::Base
     #     User.create!(name: name)
        
     # end
+=======
+    end
+>>>>>>> master
 end
