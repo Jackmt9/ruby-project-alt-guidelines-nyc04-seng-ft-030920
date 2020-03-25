@@ -10,14 +10,21 @@ class Restaurant < ActiveRecord::Base
         @prompt.select("Please select your restaurant from the following: ", list_by_name)
     end
 
-<<<<<<< HEAD
-   
-=======
 
     def show_open
-        binding.pry
+    
         Reservation.all.where(user_id: nil && restaurant == self)
     end
 
->>>>>>> master
+    def reserved
+      
+        #   reserved = Reservation.all.each do |table|  
+        #     #  table.user_id
+    
+        #     end 
+           Reservation.all.where(name: !nil && restaurant == self)
+        end 
+
+    
+
 end
