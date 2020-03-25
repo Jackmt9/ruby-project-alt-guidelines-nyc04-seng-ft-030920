@@ -1,17 +1,26 @@
 class User < ActiveRecord::Base
     @@prompt = TTY::Prompt.new
     has_many :reservations
+<<<<<<< HEAD
     def self.list_by_name
         Restaurant.all.map(&:name)
     end
+=======
+
+>>>>>>> master
     def self.log_in
         puts "\nPlease enter your full name: "
-        name = gets.chomp
+        name = gets.strip
         if name == ""
             puts "#--------Invalid entry, please try again.---------#"
             log_in
-        end
+        else
         User.find_or_create_by(name: name)
+        end
+    end
+
+    def self.print_reso(reso)
+        "#{reso.restaurant.name} - Table of #{reso.table_size} - #{reso.datetime}"
     end
     def self.print_reso(reso)
         "#{reso.restaurant.name}, table of: #{reso.table_size}, datetime: #{reso.datetime}"
@@ -24,7 +33,11 @@ class User < ActiveRecord::Base
         end
         reservation.user = self
         reservation.save
+<<<<<<< HEAD
         puts "#{self.name}, I've booked your reservation."
+=======
+        puts "\n*** #{self.name}, I've booked your reservation ***"
+>>>>>>> master
     end
     def find_resos
         resos = Reservation.all.where(user: self)
@@ -34,7 +47,7 @@ class User < ActiveRecord::Base
                 puts User.print_reso(reso)
             end
         else
-            puts "\nYou have no booked reservations."
+            puts "\n*** You have no booked reservations ***"
         end
     end
     def cancel_reso
@@ -44,5 +57,9 @@ class User < ActiveRecord::Base
             end
         end
         reso.destroy
+<<<<<<< HEAD
+=======
+        puts "\n*** Your Reservation Has Been Canceled ***"
+>>>>>>> master
     end
 end
