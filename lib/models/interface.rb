@@ -6,10 +6,21 @@ class Interface
         @prompt = TTY::Prompt.new
     end
 
+    def whirly_animation
+        Whirly.start do
+            Whirly.status = "Lets get ready to eat"
+            sleep 3
+            Whirly.status = "Getting the menu"
+            sleep 2
+          end
+    end 
+
     def welcome
         puts "\nWelcome to FreeTable! 🍽"
         puts "\n---------------------\n"
+
     end
+    
 
     def user_or_restaurant
         answer =  prompt.select("Are you a User or Restaurant?") do |menu|
@@ -30,16 +41,13 @@ class Interface
     end
 
     def restaurant_menu(restaurant)
-        binding.pry 
+        
         prompt.select("") do |q|
-<<<<<<< HEAD
-            
-=======
->>>>>>> master
             q.choice 'Check Reserved Tables', -> {restaurant.reserved}
-            q.choice 'Show Open Tables', -> {restaurant.show_open}
+            q.choice 'Show Open Tables', -> {restaurant.open}
+            q.choice 'Change Table ', -> {restaurant.change_table}
             q.choice 'Delete Listing', -> {restaurant.delete}
-            q.choice 'Change Listing', -> {restaurant.change}
+            q.choice 'Create Listing', -> {restaurant.create}
         end
     end
 end
