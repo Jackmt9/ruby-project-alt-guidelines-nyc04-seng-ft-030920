@@ -1,6 +1,6 @@
 class Restaurant < ActiveRecord::Base
     
-    @@prompt = TTY::Prompt.new
+    @@prompt = TTY::Prompt.new(active_color: :blue)
     has_many :reservations
 
     def self.log_in
@@ -19,7 +19,7 @@ class Restaurant < ActiveRecord::Base
                 puts "#{reso.datetime} - Table of #{reso.table_size}"
             end
         else
-            puts "All of your reservation listings are fully booked."
+            puts "All of your reservation listings are fully booked.".colorize(:color => :red)
         end
     end
 
@@ -34,7 +34,7 @@ class Restaurant < ActiveRecord::Base
                 puts self.class.print_reso(reso)
             end
         else
-            puts "No tables are currently reserved at your restaurant."
+            puts "No tables are currently reserved at your restaurant.".colorize(:color => :red)
         end
     end 
 
@@ -42,7 +42,7 @@ class Restaurant < ActiveRecord::Base
         if reso.user != nil
             "#{reso.user.name} - table of #{reso.table_size} - datetime: #{reso.datetime}"
         else
-            "Table of #{reso.table_size} - datetime: #{reso.datetime}"
+            "table of #{reso.table_size} - datetime: #{reso.datetime}"
         end
     end
 
@@ -55,9 +55,9 @@ class Restaurant < ActiveRecord::Base
                     q.choice Restaurant.print_reso(reso), -> {reso}
                 end
             end.destroy
-            puts "*** RESERVATION CANCELED ***"
+            puts "*** RESERVATION CANCELED ***".colorize(:color => :green)
         else
-            puts "There are no booked reservations to cancel."
+            puts "There are no booked reservations to cancel.".colorize(:color => :red)
         end
     end
 
@@ -69,9 +69,9 @@ class Restaurant < ActiveRecord::Base
                     q.choice Restaurant.print_reso(reso), -> {reso}
                 end
             end.destroy
-            puts "*** RESERVATION CANCELED ***"
+            puts "*** RESERVATION CANCELED ***".colorize(:color => :green)
         else
-            puts "There are no open reservations to cancel."
+            puts "There are no open reservations to cancel.".colorize(:color => :red)
         end
     end
 
@@ -80,7 +80,24 @@ class Restaurant < ActiveRecord::Base
         table_size = gets.chomp
         # Creates a new reservation as the same datetime that the code is run
         created = Reservation.create!(restaurant: self, table_size: table_size, datetime: DateTime.now())
-        puts "\nCreating listing for table of #{created.table_size} at #{created.datetime}."
-        puts "*** Your reservation listing has been created ***"
+        puts "\nCreating listing for table of #{created.table_size} at #{created.datetime}........"
+        puts "*** Your reservation listing has been created ***".colorize(:color => :green)
+    end
+
+    def update
+        resos = Reservation.all.where(restaurant: self, user_id: nil)
+        if resos.length > 0
+            reso_chosen = @@prompt.select("Which listing would you like to update?") do |q|
+                resos.each do |reso|
+                    q.choice Restaurant.print_reso(reso), -> {reso}
+                end
+            end
+            puts "What would you like to change the table size to?"
+            table_size = gets.chomp
+            reso_chosen.update(table_size: table_size)
+            puts "*** Reservation Updated ***".colorize(:color => :green)
+        else
+            puts "There are no open reservations to update.".colorize(:color => :red)
+        end
     end
 end

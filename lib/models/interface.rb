@@ -3,7 +3,7 @@ class Interface
     attr_accessor :prompt, :user
 
     def initialize
-        @prompt = TTY::Prompt.new
+        @prompt = TTY::Prompt.new(active_color: :blue)
     end
 
     def whirly_animation
@@ -16,7 +16,7 @@ class Interface
     end 
 
     def welcome
-        puts "\nWelcome to FreeTable! 🍽"
+        puts "\nWelcome to FreeTable! 🍽".colorize(:color => :blue)
         puts "\n---------------------\n"
 
     end
@@ -36,7 +36,11 @@ class Interface
             q.choice 'Make a Reservation', -> {user.book}
             q.choice 'View Existing Reservations', -> {user.find_resos}
             q.choice 'Cancel a Reservation', -> {user.cancel_reso}
+            q.choice 'Done', -> {Reservation.done}
         end
+        (sleep 5)
+        puts `clear`
+        user_menu(user)
     end
 
     def restaurant_menu(restaurant)
@@ -47,6 +51,11 @@ class Interface
             q.choice 'Cancel a Users Reservation', -> {restaurant.delete_booked_reso}
             q.choice 'Cancel an Open Reservation', -> {restaurant.delete_open_reso}
             q.choice 'Create Listing', -> {restaurant.create}
+            q.choice 'Update Open Listing', -> {restaurant.update}
+            q.choice 'Done', -> {Reservation.done}
         end
+        (sleep 5)
+        puts `clear`
+        restaurant_menu(restaurant)
     end
 end
