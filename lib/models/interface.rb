@@ -44,13 +44,8 @@ class Interface
         prompt.select("") do |q|
             q.choice 'Check Reserved Tables', -> {restaurant.reserved}
             q.choice 'Show Open Tables', -> {restaurant.open}
-<<<<<<< HEAD
-            q.choice 'Change Table ', -> {restaurant.change_table}
-            q.choice 'Delete Listing', -> {restaurant.delete}
-=======
             q.choice 'Cancel a Users Reservation', -> {restaurant.delete_booked_reso}
             q.choice 'Cancel an Open Reservation', -> {restaurant.delete_open_reso}
->>>>>>> master
             q.choice 'Create Listing', -> {restaurant.create}
         end
     end
